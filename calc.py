@@ -1,8 +1,8 @@
 '''
 Universidad del Valle de Guatemala
 Parcial 1 - Física 3
-Simulación de Campo Eléctricos
- ---> Cálculo de campos
+Simulación de capacitancias
+ ---> Cálculos
 
 Fabiola Contreras 22787
 María José Villafuerte 22129
@@ -14,11 +14,7 @@ import numpy as np # Libreria científica y matemática para Python.
 from scipy import constants, integrate   # Librerias para integrar funciones en un intervalo dado.
 '''
 Diccionario: 
-K: Contante de Coulomb
-Q: Carga
-r:Radio 
-x: Distancia apunto P
-l: largo de la línea de carga
+
 
 '''
 
@@ -26,27 +22,51 @@ k = 8.988*10**9 #Valor de 1/4π∈₀
 e0= 8.85*10**(-12)
 #ecuacion_general_CampoE = (k*Q)/(r**2)
 
-'''Funcion que calcula el campo electrico en una línea de carga.'''
-def Funcion_ecuacion_CampoE_LineasDeCarga(Q,x,l):
-    #Ya que le pedimos la lingutod debemos de dividirlo por 2
-    a = l/2
-    dE = lambda y: (k*Q*x)/(l*np.sqrt(x**2+y**2)**3)
-    E = integrate.quad(dE, -a, a) 
-    print('El valor del campo es:',"{:.3e}".format(E[0]))
-    return E[0]
+'''Funciones de Capacitancia'''
+#C₀ = ∈₀*A/d
+def Capacitancia_PP(largo, ancho, separacion): #Placas Paralelas
+    area = largo * ancho
+    division = area / separacion
+    return e0 * division
 
-'''Funcion que calcula el campo electrico en un anillo circular.'''
-def Funcion_ecuacion_CampoE_anillo(Q,x,a):
-    r= 2 * np.pi * a
-    dE = lambda s: (k*x*(Q/(2*np.pi*a)))/(np.sqrt(x**2+a**2)**3)
-    E= integrate.quad(dE, 0, r) 
-    print('El valor del campo es:',"{:.3e}".format(E[0]))
-    return E[0]
-    
-'''Funcion que calcula el campo electrico en un disco circular.'''
-def Funcion_ecuacion_CampoE_Disco(Q,x,R):
-    dE = lambda r: (x*Q*r)/(2*np.pi*(R**2)*constants.epsilon_0*(np.sqrt(x**2+r**2)**3))
-    E = integrate.quad(dE, 0, int(R)) 
-    print('El valor del campo es:',"{:.3e}".format(E[0]))
-    return E[0]
+#C₀ = 4π∈₀*(rE*rI)/ln(rE/rI)
+def Capacitancia_E(radioE, radioI): #Esfera
+    inverso_k = 1/k
+    radios = radioE*radioI/np.log(radioE/radioI)
+    return inverso_k*radios
+
+#C₀ = 2π∈₀L/ln(rE/rI)
+def Capacitancia_C(largo, radioE, radioI): #Cilindro
+    inverso_k = 2/k
+    ln = 1/np.log(radioE/radioI)
+    return inverso_k*largo*ln
+
+'''Funciones de Carga'''
+def Carga(capacitancia, voltaje):
+    return capacitancia*voltaje
+
+'''Funciones de Energía'''
+#1/2(C)(V^2)
+def energia(capacitancia, voltaje):
+    return ((capacitancia/2)*(voltaje^2))
+
+'''Funciones de Dieléctricos'''
+def dielectrico(capacitancia_inicial, constante_dielectrica):
+    return capacitancia_inicial*(constante_dielectrica+1)/2
+
+def carga_libre_PP(Carga,largo, ancho):
+    area = largo*ancho
+    return (Carga/area)
+
+def carga_libre_Esfera(Carga, radio):
+    area = 4*np.pi*(radio^2)
+    return (Carga/area)
+
+def carga_libre_Cilindro(Carga, largo, radioE):
+    area = 2*np.pi*radioE*(radioE+largo)
+    return (Carga/area)
+
+def carga_ligada(carga_libre, constante_dielectrica):
+    return carga_libre(1-(1/constante_dielectrica))
+
 
