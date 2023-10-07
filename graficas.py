@@ -21,10 +21,9 @@ Dielectrico =
     3. El dieléctrico está en la mitad del capacitor
 '''
 
-# Crear una figura y un eje
-figure, ax = plt.subplots()
-
 def CapacitorPlacasParalelas(largo, separacion, Dielectrico):
+    # Crear una figura y un eje
+    ax = plt.subplots()
     #Detalles
     distanciaSeparacion = mlines.Line2D([largo/2 +0.1, largo/2 +0.1], [-separacion/2 + 0.5, separacion/2], color='#74cc83', linewidth=1) 
     ax.add_line(distanciaSeparacion) #Distancia
@@ -65,6 +64,8 @@ def CapacitorPlacasParalelas(largo, separacion, Dielectrico):
     
 
 def CapacitorEsferico(Ri, Re, Dielectrico):
+    # Crear una figura y un eje
+    ax = plt.subplots()
     # Dibujar el círculo externo
     circulo_externo = patches.Circle((0, 0), radius=Re, fill=False, edgecolor='black', linewidth=1.5)
     ax.add_patch(circulo_externo)
@@ -101,6 +102,8 @@ def CapacitorEsferico(Ri, Re, Dielectrico):
 
 
 def CapacitorCilindrico(Ri, Re, largo, Dielectrico):
+    # Crear una figura y un eje
+    ax = plt.subplots()
     #Detalles
     ax.add_line(mlines.Line2D([0, Re], [-largo/2 - 0.2, -largo/2 - 0.2], color='#74cc83', linewidth=2)) #Radio Externo
     ax.annotate("Re = " + str(Re), xy=(Re/2-0.1, -largo/2 - 0.5), color='#74cc83', fontsize=8, fontname='Times New Roman')

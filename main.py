@@ -10,6 +10,7 @@ María José Villafuerte 22129
 
 import tkinter as tk # Libreria para creacion de interfaz grafica
 import calc
+import graficas
 
 def clear_frame():
     for widgets in Main_page.winfo_children():
