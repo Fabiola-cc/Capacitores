@@ -9,6 +9,7 @@ María José Villafuerte 22129
 '''
 
 import tkinter as tk # Libreria para creacion de interfaz grafica
+from tkinter import ttk
 import calc
 import graficas
 
@@ -18,39 +19,39 @@ def clear_frame():
 
 def main():
     clear_frame()
-    tk.Label(Main_page, text = "\nEjercicio 5 - Parcial 2 - Física 3", font="Times 10 italic").pack()
-    tk.Label(Main_page, text = "Fabiola Contreras 22787\tMaría José Villafuerte 22129\n", font="Times 10 italic").pack()
-    tk.Label(Main_page, text = "¿Qué tipo de capacitor deseas calcular?", font="Times 15 italic").pack()
+    tk.Label(Main_page, text = "\nEjercicio 5 - Parcial 2 - Física 3", font="Times 10 ").pack()
+    tk.Label(Main_page, text = "Fabiola Contreras 22787\tMaría José Villafuerte 22129\n", font="Times 10 ").pack()
+    tk.Label(Main_page, text = "¿Qué tipo de capacitor deseas calcular?", font="Times 15 ").pack()
 
-    tk.Label(Main_page, text = "\tPlacas paralelas", font="Times 15").place(x=5, y=130)
-    tk.Button(text ="▷", command= calculo_PP).place(x=240, y=128)
+    tk.Label(Main_page, text = "\tPlacas paralelas", font="Times 15").place(x=50, y=130)
+    ttk.Button(text ="▷", command= calculo_PP).place(x=285, y=128)
 
-    tk.Label(Main_page, text = "\tEsférico", font="Times 15").place(x=5, y=160)
-    tk.Button(text ="▷", command = calculo_E).place(x=240, y=158)
+    tk.Label(Main_page, text = "\tEsférico", font="Times 15").place(x=50, y=160)
+    ttk.Button(text ="▷", command = calculo_E).place(x=285, y=158)
 
-    tk.Label(Main_page, text = "\tCilíndrico", font="Times 15").place(x=5, y=190)
-    tk.Button(text ="▷", command = calculo_Cl).place(x=240, y=188)
+    tk.Label(Main_page, text = "\tCilíndrico", font="Times 15").place(x=50, y=190)
+    ttk.Button(text ="▷", command = calculo_Cl).place(x=285, y=188)
 
 def calculo_PP(): #Placas paralelas
     clear_frame()
     tk.Label(Main_page, text = "\n Capacitor de Placas Paralelas", font="Times 20").pack() #Titulo
 
     #----------------------------------Solicitud de datos-------------------------------------------------
-    tk.Label(Main_page, text = "Ingresa el largo de la placa", font="Times 8").place(x=10, y=60) 
+    tk.Label(Main_page, text = "Ingresa el largo de la placa", font="Times 8").place(x=160, y=90) 
     Input_Largo_placa = tk.DoubleVar()
-    tk.Entry(textvariable=Input_Largo_placa).place(x=10,y=80)
+    tk.Entry(textvariable=Input_Largo_placa).place(x=162,y=110)
     
-    tk.Label(Main_page, text = "Ingresa el ancho de la placa", font="Times 8").place(x=10, y=100)
+    tk.Label(Main_page, text = "Ingresa el ancho de la placa", font="Times 8").place(x=160, y=130)
     Input_ancho_placa = tk.DoubleVar()
-    tk.Entry(textvariable=Input_ancho_placa).place(x=10,y=120)
+    tk.Entry(textvariable=Input_ancho_placa).place(x=162,y=150)
 
-    tk.Label(Main_page, text = "Ingresa la separación entre placas", font="Times 8").place(x=10, y=140)
+    tk.Label(Main_page, text = "Ingresa la separación entre placas", font="Times 8").place(x=310, y=90)
     Input_separacion_placa = tk.DoubleVar()
-    tk.Entry(textvariable=Input_separacion_placa).place(x=10,y=160)
+    tk.Entry(textvariable=Input_separacion_placa).place(x=312,y=110)
 
-    tk.Label(Main_page, text = "Ingresa el voltaje", font="Times 8").place(x=10, y=180)
+    tk.Label(Main_page, text = "Ingresa el voltaje", font="Times 8").place(x=310, y=130)
     Input_Voltaje_placa = tk.DoubleVar()
-    tk.Entry(textvariable=Input_Voltaje_placa).place(x=10,y=200)
+    tk.Entry(textvariable=Input_Voltaje_placa).place(x=312,y=150)
     #------------------------------------------------------------------------------------------------------
 
     #----------------------------------Funciones de botones------------------------------------------------
@@ -63,10 +64,10 @@ def calculo_PP(): #Placas paralelas
         capacitancia = calc.Capacitancia_PP(largo, ancho, separacion)
         energia = calc.energia(float(capacitancia), voltaje)
         carga = calc.Carga(float(capacitancia), voltaje)
-        tk.Label(Main_page, text = "Capacitancia:  " + "{:.2e}".format(capacitancia) + " F", font="Times 8").place(x=30, y=300)
-        tk.Label(Main_page, text = "Carga:  "+ "{:.2e}".format(carga) + " C", font="Times 8").place(x=30, y=330)
-        tk.Label(Main_page, text = "Energía:  " + "{:.2e}".format(energia) + " J", font="Times 8").place(x=30, y=360)
-        graficas.CapacitorPlacasParalelas(largo,separacion,1)
+        tk.Label(Main_page, text = "Capacitancia:  " + "{:.2e}".format(capacitancia) + " F", font="Times 8").place(x=150, y=370)
+        tk.Label(Main_page, text = "Carga:  "+ "{:.2e}".format(carga) + " C", font="Times 8").place(x=150, y=400)
+        tk.Label(Main_page, text = "Energía:  " + "{:.2e}".format(energia) + " J", font="Times 8").place(x=150, y=430)
+        graficas.CapacitorPlacasParalelas(largo,separacion,1,Main_page)
 
     def Call_dec_lleno():
         largo = float(Input_Largo_placa.get())
@@ -80,11 +81,11 @@ def calculo_PP(): #Placas paralelas
         carga_libre = calc.carga_libre_PP(carga_total,largo, ancho, 1, 3.40)
         carga_ligada = calc.carga_ligada_PP(carga_libre[0], 3.40)
         energia = calc.energia_full_dielectricos(capacitancia_diec,3.40,voltaje)
-        tk.Label(Main_page, text = "Energía:  " + "{:.2e}".format(energia) + " J", font="Times 8").place(x=330, y=260)
-        tk.Label(Main_page, text = "Capacitancia con dieléctrico: "+ "{:.2e}".format(capacitancia_diec) + " F", font="Times 8").place(x=330, y=290)
-        tk.Label(Main_page, text = "Densidad de Carga Libre: "+ "{:.2e}".format(carga_libre[0]) + " C/m^2" , font="Times 8").place(x=330, y=320)
-        tk.Label(Main_page, text = "Densidad de Carga Ligada: " + "{:.2e}".format(carga_ligada) + " C/m^2", font="Times 8").place(x=330, y=350)
-        graficas.CapacitorPlacasParalelas(largo,separacion,2)
+        tk.Label(Main_page, text = "Energía:  " + "{:.2e}".format(energia) + " J", font="Times 8").place(x=330, y=370)
+        tk.Label(Main_page, text = "Capacitancia con dieléctrico: "+ "{:.2e}".format(capacitancia_diec) + " F", font="Times 8").place(x=330, y=400)
+        tk.Label(Main_page, text = "Densidad de Carga Libre: "+ "{:.2e}".format(carga_libre[0]) + " C/m^2" , font="Times 8").place(x=330, y=430)
+        tk.Label(Main_page, text = "Densidad de Carga Ligada: " + "{:.2e}".format(carga_ligada) + " C/m^2", font="Times 8").place(x=330, y=460)
+        graficas.CapacitorPlacasParalelas(largo,separacion,2,Main_page)
 
     def Call_dec_mitad():
         largo = float(Input_Largo_placa.get())
@@ -98,24 +99,24 @@ def calculo_PP(): #Placas paralelas
         carga_libre = calc.carga_libre_PP(carga_total, largo, ancho, 2, 3.40)
         carga_ligada = calc.carga_ligada_PP(carga_libre[1], 3.40)
         energia = calc.energia_mitad_dielectricos(capacitancia_diec,capacitancia_total, 3.4, voltaje)
-        tk.Label(Main_page, text = "Energía:  " + "{:.2e}".format(energia) + " J", font="Times 8").place(x=330, y=260)
-        tk.Label(Main_page, text = "Capacitancia con dieléctrico: "+ "{:.2e}".format(capacitancia_diec) + " F", font="Times 8").place(x=330, y=290)
-        tk.Label(Main_page, text = "Densidad de Carga Libre -Aire: "+ "{:.2e}".format(carga_libre[0]) + " C/m^2", font="Times 8").place(x=330, y=320)
-        tk.Label(Main_page, text = "Densidad de Carga Libre -Plexiglas: "+ "{:.2e}".format(carga_libre[1]) + " C/m^2", font="Times 8").place(x=330, y=350)
-        tk.Label(Main_page, text = "Densidad de Carga Ligada: " + "{:.2e}".format(carga_ligada) + " C/m^2", font="Times 8").place(x=330, y=380)
-        graficas.CapacitorPlacasParalelas(largo,separacion,3)
+        tk.Label(Main_page, text = "Energía:  " + "{:.2e}".format(energia) + " J", font="Times 8").place(x=330, y=370)
+        tk.Label(Main_page, text = "Capacitancia con dieléctrico: "+ "{:.2e}".format(capacitancia_diec) + " F", font="Times 8").place(x=330, y=400)
+        tk.Label(Main_page, text = "Densidad de Carga Libre -Aire: "+ "{:.2e}".format(carga_libre[0]) + " C/m^2", font="Times 8").place(x=330, y=430)
+        tk.Label(Main_page, text = "Densidad de Carga Libre -Plexiglas: "+ "{:.2e}".format(carga_libre[1]) + " C/m^2", font="Times 8").place(x=330, y=460)
+        tk.Label(Main_page, text = "Densidad de Carga Ligada: " + "{:.2e}".format(carga_ligada) + " C/m^2", font="Times 8").place(x=330, y=490)
+        graficas.CapacitorPlacasParalelas(largo,separacion,3,Main_page)
     #------------------------------------------------------------------------------------------------------
 
     #----------------------------------Botones de resultados------------------------------------------------
-    Clc_posibles=tk.Label(Main_page, text = "Cálculos:", font="Times 15 italic")
-    Clc_posibles.place(x=15, y=230)
+    Clc_posibles=tk.Label(Main_page, text = "Cálculos:", font="Times 15 ")
+    Clc_posibles.place(x=150, y=230)
 
-    tk.Button(text ="Resultados", command= Calculos_PP).place(x=15, y=270)
-    tk.Label(Main_page, text = "Dieléctricos:", font="Times 15 italic").place(x=225, y=230)
-    tk.Button(text ="Lleno", command= Call_dec_lleno).place(x=225, y=270)
-    tk.Button(text ="Medio lleno", command= Call_dec_mitad).place(x=225, y=310)
+    ttk.Button(text ="Resultados", command= Calculos_PP).place(x=150, y=270)
+    tk.Label(Main_page, text = "Dieléctricos:", font="Times 15 ").place(x=330, y=230)
+    ttk.Button(text ="Lleno", command= Call_dec_lleno).place(x=330, y=270)
+    ttk.Button(text ="Medio lleno", command= Call_dec_mitad).place(x=330, y=310)
 
-    Boton_atras = tk.Button(text ="Regresar", command= main)
+    Boton_atras = ttk.Button(text ="Regresar", command= main)
     Boton_atras.place(x=10, y=10)
     #-------------------------------------------------------------------------------------------------------
 
@@ -124,17 +125,17 @@ def calculo_E(): #esfera
     tk.Label(Main_page, text = "\n Capacitor Esférico", font="Times 20").pack() #Titulo
 
     #----------------------------------Solicitud de datos-------------------------------------------------
-    tk.Label(Main_page, text = "Ingresa el radio exterior", font="Times 8").place(x=10, y=60) 
+    tk.Label(Main_page, text = "Ingresa el radio exterior", font="Times 8").place(x=160, y=90) 
     Input_Radio_Exterior = tk.DoubleVar()
-    tk.Entry(textvariable=Input_Radio_Exterior).place(x=10,y=80)
+    tk.Entry(textvariable=Input_Radio_Exterior).place(x=162,y=110)
 
-    tk.Label(Main_page, text = "Ingresa el radio interior", font="Times 8").place(x=10, y=100)
+    tk.Label(Main_page, text = "Ingresa el radio interior", font="Times 8").place(x=160, y=130)
     Input_Radio_Interior= tk.DoubleVar()
-    tk.Entry(textvariable=Input_Radio_Interior).place(x=10,y=120)
+    tk.Entry(textvariable=Input_Radio_Interior).place(x=162,y=150)
 
-    tk.Label(Main_page, text = "Ingresa el voltaje", font="Times 8").place(x=10, y=140)
+    tk.Label(Main_page, text = "Ingresa el voltaje", font="Times 8").place(x=160, y=170)
     Input_Voltaje_placa = tk.DoubleVar()
-    tk.Entry(textvariable=Input_Voltaje_placa).place(x=10,y=160)
+    tk.Entry(textvariable=Input_Voltaje_placa).place(x=162,y=200)
     #------------------------------------------------------------------------------------------------------
 
     #----------------------------------Funciones de botones------------------------------------------------
@@ -146,10 +147,10 @@ def calculo_E(): #esfera
         capacitancia = calc.Capacitancia_E(RadioE,RadioI)
         energia = calc.energia(float(capacitancia), Voltaje)
         carga = calc.Carga(float(capacitancia), Voltaje)
-        tk.Label(Main_page, text = "Capacitancia:  " + "{:.2e}".format(capacitancia) + " F", font="Times 8").place(x=30, y=300)
-        tk.Label(Main_page, text = "Carga:  "+ "{:.2e}".format(carga) + " C", font="Times 8").place(x=30, y=330)
-        tk.Label(Main_page, text = "Energía:  " + "{:.2e}".format(energia) + "J", font="Times 8").place(x=30, y=360)
-        graficas.CapacitorEsferico(RadioI,RadioE,1)
+        tk.Label(Main_page, text = "Capacitancia:  " + "{:.2e}".format(capacitancia) + " F", font="Times 8").place(x=150, y=370)
+        tk.Label(Main_page, text = "Carga:  "+ "{:.2e}".format(carga) + " C", font="Times 8").place(x=150, y=400)
+        tk.Label(Main_page, text = "Energía:  " + "{:.2e}".format(energia) + "J", font="Times 8").place(x=150, y=430)
+        graficas.CapacitorEsferico(RadioI,RadioE,1,Main_page)
 
     def Call_dec_lleno():
         RadioE = float(Input_Radio_Exterior.get())
@@ -162,13 +163,13 @@ def calculo_E(): #esfera
         carga_libre = calc.carga_libre_Esfera(carga, RadioI, RadioE, 1, 3.40)
         carga_ligada = calc.carga_ligada_EC(carga_libre, 3.40)
         energia = calc.energia_full_dielectricos(capacitancia_diec,3.40,Voltaje)
-        tk.Label(Main_page, text = "Energía:  " + "{:.2e}".format(energia) + " J", font="Times 8").place(x=330, y=260)
-        tk.Label(Main_page, text = "Capacitancia con dieléctrico: "+ "{:.2e}".format(capacitancia_diec)+ " F", font="Times 8").place(x=330, y=290)
-        tk.Label(Main_page, text = "Densidad de Carga Libre Ri: "+ "{:.2e}".format(carga_libre[2]) + " C/m^2", font="Times 8").place(x=330, y=320)
-        tk.Label(Main_page, text = "Densidad de Carga Libre Re: "+ "{:.2e}".format(carga_libre[3]) + " C/m^2", font="Times 8").place(x=330, y=350)
-        tk.Label(Main_page, text = "Densidad de Carga Ligada Ri: " + "{:.2e}".format(carga_ligada[0])+ " C/m^2", font="Times 8").place(x=330, y=380)
-        tk.Label(Main_page, text = "Densidad de Carga Ligada Re: " + "{:.2e}".format(carga_ligada[1])+ " C/m^2", font="Times 8").place(x=330, y=410)
-        graficas.CapacitorEsferico(RadioI,RadioE,2)
+        tk.Label(Main_page, text = "Energía:  " + "{:.2e}".format(energia) + " J", font="Times 8").place(x=330, y=370)
+        tk.Label(Main_page, text = "Capacitancia con dieléctrico: "+ "{:.2e}".format(capacitancia_diec)+ " F", font="Times 8").place(x=330, y=400)
+        tk.Label(Main_page, text = "Densidad de Carga Libre Ri: "+ "{:.2e}".format(carga_libre[2]) + " C/m^2", font="Times 8").place(x=330, y=430)
+        tk.Label(Main_page, text = "Densidad de Carga Libre Re: "+ "{:.2e}".format(carga_libre[3]) + " C/m^2", font="Times 8").place(x=330, y=460)
+        tk.Label(Main_page, text = "Densidad de Carga Ligada Ri: " + "{:.2e}".format(carga_ligada[0])+ " C/m^2", font="Times 8").place(x=330, y=490)
+        tk.Label(Main_page, text = "Densidad de Carga Ligada Re: " + "{:.2e}".format(carga_ligada[1])+ " C/m^2", font="Times 8").place(x=330, y=520)
+        graficas.CapacitorEsferico(RadioI,RadioE,2,Main_page)
 
     def Call_dec_mitad():
         RadioE = float(Input_Radio_Exterior.get())
@@ -181,28 +182,28 @@ def calculo_E(): #esfera
         carga_ligada = calc.carga_ligada_EC(carga_libre, 3.40)
         capacitancia_diec = calc.dielectrico_mitad(capacitancia, 3.40)
         energia = calc.energia_mitad_dielectricos(capacitancia_diec,capacitancia, 3.4, Voltaje)
-        tk.Label(Main_page, text = "Energía:  " + "{:.2e}".format(energia) + " J", font="Times 8").place(x=330, y=260)
-        tk.Label(Main_page, text = "Capacitancia con dieléctrico: "+ "{:.2e}".format(capacitancia_diec) + " F", font="Times 8").place(x=330, y=290)
-        tk.Label(Main_page, text = "Densidad de Carga Libre Ri -> Aire: "+ "{:.2e}".format(carga_libre[0])+ " C/m^2", font="Times 8").place(x=330, y=320)
-        tk.Label(Main_page, text = "Densidad de Carga Libre Re -> Aire: "+ "{:.2e}".format(carga_libre[1])+ " C/m^2", font="Times 8").place(x=330, y=350)
-        tk.Label(Main_page, text = "Densidad de Carga Libre Ri -> Plexiglas: "+ "{:.2e}".format(carga_libre[2])+ " C/m^2", font="Times 8").place(x=330, y=380)
-        tk.Label(Main_page, text = "Densidad de Carga Libre Re -> Plexiglas: "+ "{:.2e}".format(carga_libre[3])+ " C/m^2", font="Times 8").place(x=330, y=410)
-        tk.Label(Main_page, text = "Densidad de Carga Ligada Ri: " + "{:.2e}".format(carga_ligada[0])+ " C/m^2", font="Times 8").place(x=330, y=440)
-        tk.Label(Main_page, text = "Densidad de Carga Ligada Re: " + "{:.2e}".format(carga_ligada[1])+ " C/m^2", font="Times 8").place(x=330, y=470)
-        graficas.CapacitorEsferico(RadioI,RadioE,3)
+        tk.Label(Main_page, text = "Energía:  " + "{:.2e}".format(energia) + " J", font="Times 8").place(x=330, y=370)
+        tk.Label(Main_page, text = "Capacitancia con dieléctrico: "+ "{:.2e}".format(capacitancia_diec) + " F", font="Times 8").place(x=330, y=400)
+        tk.Label(Main_page, text = "Densidad de Carga Libre Ri -> Aire: "+ "{:.2e}".format(carga_libre[0])+ " C/m^2", font="Times 8").place(x=330, y=430)
+        tk.Label(Main_page, text = "Densidad de Carga Libre Re -> Aire: "+ "{:.2e}".format(carga_libre[1])+ " C/m^2", font="Times 8").place(x=330, y=460)
+        tk.Label(Main_page, text = "Densidad de Carga Libre Ri -> Plexiglas: "+ "{:.2e}".format(carga_libre[2])+ " C/m^2", font="Times 8").place(x=330, y=490)
+        tk.Label(Main_page, text = "Densidad de Carga Libre Re -> Plexiglas: "+ "{:.2e}".format(carga_libre[3])+ " C/m^2", font="Times 8").place(x=330, y=520)
+        tk.Label(Main_page, text = "Densidad de Carga Ligada Ri: " + "{:.2e}".format(carga_ligada[0])+ " C/m^2", font="Times 8").place(x=330, y=550)
+        tk.Label(Main_page, text = "Densidad de Carga Ligada Re: " + "{:.2e}".format(carga_ligada[1])+ " C/m^2", font="Times 8").place(x=330, y=580)
+        graficas.CapacitorEsferico(RadioI,RadioE,3,Main_page)
 
     #------------------------------------------------------------------------------------------------------
 
     #----------------------------------Botones de resultados------------------------------------------------
-    Clc_posibles=tk.Label(Main_page, text = "Cálculos:", font="Times 15 italic")
-    Clc_posibles.place(x=15, y=230)
+    Clc_posibles=tk.Label(Main_page, text = "Cálculos:", font="Times 15")
+    Clc_posibles.place(x=150, y=230)
 
-    tk.Button(text ="Resultados", command= Call_capacitancia).place(x=15, y=270)
-    tk.Label(Main_page, text = "Dieléctricos:", font="Times 15 italic").place(x=225, y=230)
-    tk.Button(text ="Lleno", command= Call_dec_lleno).place(x=225, y=270)
-    tk.Button(text ="Medio lleno", command= Call_dec_mitad).place(x=225, y=310)
+    ttk.Button(text ="Resultados", command= Call_capacitancia).place(x=150, y=270)
+    tk.Label(Main_page, text = "Dieléctricos:", font="Times 15").place(x=330, y=230)
+    ttk.Button(text ="Lleno", command= Call_dec_lleno).place(x=330, y=270)
+    ttk.Button(text ="Medio lleno", command= Call_dec_mitad).place(x=330, y=310)
 
-    Boton_atras = tk.Button(text ="Regresar", command= main)
+    Boton_atras = ttk.Button(text ="Regresar", command= main)
     Boton_atras.place(x=10, y=10)
 
 def calculo_Cl(): #Placas paralelas
@@ -210,21 +211,21 @@ def calculo_Cl(): #Placas paralelas
     tk.Label(Main_page, text = "\n Capacitor Cilíndrico", font="Times 20").pack() #Titulo
 
     #----------------------------------Solicitud de datos-------------------------------------------------
-    tk.Label(Main_page, text = "Ingresa el radio exterior", font="Times 8").place(x=10, y=60) 
+    tk.Label(Main_page, text = "Ingresa el radio exterior", font="Times 8").place(x=160, y=90) 
     Input_Radio_Exterior = tk.DoubleVar()
-    tk.Entry(textvariable=Input_Radio_Exterior).place(x=10,y=80)
+    tk.Entry(textvariable=Input_Radio_Exterior).place(x=162,y=110)
 
-    tk.Label(Main_page, text = "Ingresa el radio interior", font="Times 8").place(x=10, y=100)
+    tk.Label(Main_page, text = "Ingresa el radio interior", font="Times 8").place(x=160, y=130)
     Input_Radio_Interior= tk.DoubleVar()
-    tk.Entry(textvariable=Input_Radio_Interior).place(x=10,y=120)
+    tk.Entry(textvariable=Input_Radio_Interior).place(x=162,y=150)
 
-    tk.Label(Main_page, text = "Ingresa el largo", font="Times 8").place(x=10, y=140)
+    tk.Label(Main_page, text = "Ingresa el largo", font="Times 8").place(x=310, y=90)
     Input_Largo = tk.DoubleVar()
-    tk.Entry(textvariable=Input_Largo).place(x=10,y=160)
+    tk.Entry(textvariable=Input_Largo).place(x=312,y=110)
 
-    tk.Label(Main_page, text = "Ingresa el voltaje", font="Times 8").place(x=10, y=180)
+    tk.Label(Main_page, text = "Ingresa el voltaje", font="Times 8").place(x=310, y=130)
     Input_Voltaje_placa = tk.DoubleVar()
-    tk.Entry(textvariable=Input_Voltaje_placa).place(x=10,y=200)
+    tk.Entry(textvariable=Input_Voltaje_placa).place(x=312,y=150)
     #------------------------------------------------------------------------------------------------------
 
     #----------------------------------Funciones de botones------------------------------------------------
@@ -237,10 +238,10 @@ def calculo_Cl(): #Placas paralelas
         capacitancia = calc.Capacitancia_C(Largo, RadioE, RadioI)
         energia = calc.energia(float(capacitancia), Voltaje)
         carga = calc.Carga(float(capacitancia), Voltaje)
-        tk.Label(Main_page, text = "Capacitancia:  " + "{:.2e}".format(capacitancia)+" F", font="Times 8").place(x=30, y=300)
-        tk.Label(Main_page, text = "Carga:  "+ "{:.2e}".format(carga)+ " C", font="Times 8").place(x=30, y=330)
-        tk.Label(Main_page, text = "Energía:  " + "{:.2e}".format(energia)+ " J", font="Times 8").place(x=30, y=360)
-        graficas.CapacitorCilindrico(RadioI,RadioE,Largo,1)
+        tk.Label(Main_page, text = "Capacitancia:  " + "{:.2e}".format(capacitancia)+" F", font="Times 8").place(x=150, y=370)
+        tk.Label(Main_page, text = "Carga:  "+ "{:.2e}".format(carga)+ " C", font="Times 8").place(x=150, y=400)
+        tk.Label(Main_page, text = "Energía:  " + "{:.2e}".format(energia)+ " J", font="Times 8").place(x=150, y=430)
+        graficas.CapacitorCilindrico(RadioI,RadioE,Largo,1,Main_page)
 
     def Call_dec_lleno():
         RadioE = float(Input_Radio_Exterior.get())
@@ -254,13 +255,13 @@ def calculo_Cl(): #Placas paralelas
         carga_libre = calc.carga_libre_Cilindro(carga_total, Largo, RadioE, RadioI, 1, 3.40)
         carga_ligada = calc.carga_ligada_EC(carga_libre, 3.40)
         energia = calc.energia_full_dielectricos(capacitancia_diec,3.40,Voltaje)
-        tk.Label(Main_page, text = "Energía:  " + "{:.2e}".format(energia) + " J", font="Times 8").place(x=330, y=260)
-        tk.Label(Main_page, text = "Capacitancia con dieléctrico: "+ "{:.2e}".format(capacitancia_diec)+ " F", font="Times 8").place(x=330, y=290)
-        tk.Label(Main_page, text = "Densidad de Carga Libre Ri: "+ "{:.2e}".format(carga_libre[0])+ " C/m^2", font="Times 8").place(x=330, y=320)
-        tk.Label(Main_page, text = "Densidad de Carga Libre Re: "+ "{:.2e}".format(carga_libre[1])+ " C/m^2", font="Times 8").place(x=330, y=350)
-        tk.Label(Main_page, text = "Densidad de Carga Ligada Ri: " + "{:.2e}".format(carga_ligada[0])+ " C/m^2", font="Times 8").place(x=330, y=380)
-        tk.Label(Main_page, text = "Densidad de Carga Ligada Re: " + "{:.2e}".format(carga_ligada[1])+ " C/m^2", font="Times 8").place(x=330, y=410)
-        graficas.CapacitorCilindrico(RadioI,RadioE,Largo,2)
+        tk.Label(Main_page, text = "Energía:  " + "{:.2e}".format(energia) + " J", font="Times 8").place(x=330, y=370)
+        tk.Label(Main_page, text = "Capacitancia con dieléctrico: "+ "{:.2e}".format(capacitancia_diec)+ " F", font="Times 8").place(x=330, y=400)
+        tk.Label(Main_page, text = "Densidad de Carga Libre Ri: "+ "{:.2e}".format(carga_libre[0])+ " C/m^2", font="Times 8").place(x=330, y=430)
+        tk.Label(Main_page, text = "Densidad de Carga Libre Re: "+ "{:.2e}".format(carga_libre[1])+ " C/m^2", font="Times 8").place(x=330, y=460)
+        tk.Label(Main_page, text = "Densidad de Carga Ligada Ri: " + "{:.2e}".format(carga_ligada[0])+ " C/m^2", font="Times 8").place(x=330, y=490)
+        tk.Label(Main_page, text = "Densidad de Carga Ligada Re: " + "{:.2e}".format(carga_ligada[1])+ " C/m^2", font="Times 8").place(x=330, y=520)
+        graficas.CapacitorCilindrico(RadioI,RadioE,Largo,2,Main_page)
 
     def Call_dec_mitad():
         RadioE = float(Input_Radio_Exterior.get())
@@ -275,31 +276,31 @@ def calculo_Cl(): #Placas paralelas
         carga_ligada = calc.carga_ligada_EC(carga_libre, 3.40)
         capacitancia_diec = calc.dielectrico_mitad(capacitancia, 3.40)
         energia = calc.energia_mitad_dielectricos(capacitancia_diec,capacitancia, 3.4, Voltaje)
-        tk.Label(Main_page, text = "Energía:  " + "{:.2e}".format(energia) + " J", font="Times 8").place(x=330, y=260)
-        tk.Label(Main_page, text = "Capacitancia con dieléctrico: "+ "{:.2e}".format(capacitancia_diec) + " F", font="Times 8").place(x=330, y=290)
-        tk.Label(Main_page, text = "Densidad de Carga Libre Ri -> Aire: "+ "{:.2e}".format(carga_libre[0])+ " C/m^2", font="Times 8").place(x=330, y=320)
-        tk.Label(Main_page, text = "Densidad de Carga Libre Re -> Aire: "+ "{:.2e}".format(carga_libre[1])+ " C/m^2", font="Times 8").place(x=330, y=350)
-        tk.Label(Main_page, text = "Densidad de Carga Libre Ri -> Plexiglas: "+ "{:.2e}".format(carga_libre[2])+ " C/m^2", font="Times 8").place(x=330, y=380)
-        tk.Label(Main_page, text = "Densidad de Carga Libre Re -> Plexiglas: "+ "{:.2e}".format(carga_libre[3])+ " C/m^2", font="Times 8").place(x=330, y=410)
-        tk.Label(Main_page, text = "Densidad de Carga Ligada Ri" + "{:.2e}".format(carga_ligada[0])+ " C/m^2", font="Times 8").place(x=330, y=440)
-        tk.Label(Main_page, text = "Densidad de Carga Ligada Re" + "{:.2e}".format(carga_ligada[1])+ " C/m^2", font="Times 8").place(x=330, y=470)
-        graficas.CapacitorCilindrico(RadioI,RadioE,Largo,3)
+        tk.Label(Main_page, text = "Energía:  " + "{:.2e}".format(energia) + " J", font="Times 8").place(x=330, y=370)
+        tk.Label(Main_page, text = "Capacitancia con dieléctrico: "+ "{:.2e}".format(capacitancia_diec) + " F", font="Times 8").place(x=330, y=400)
+        tk.Label(Main_page, text = "Densidad de Carga Libre Ri -> Aire: "+ "{:.2e}".format(carga_libre[0])+ " C/m^2", font="Times 8").place(x=330, y=430)
+        tk.Label(Main_page, text = "Densidad de Carga Libre Re -> Aire: "+ "{:.2e}".format(carga_libre[1])+ " C/m^2", font="Times 8").place(x=330, y=460)
+        tk.Label(Main_page, text = "Densidad de Carga Libre Ri -> Plexiglas: "+ "{:.2e}".format(carga_libre[2])+ " C/m^2", font="Times 8").place(x=330, y=490)
+        tk.Label(Main_page, text = "Densidad de Carga Libre Re -> Plexiglas: "+ "{:.2e}".format(carga_libre[3])+ " C/m^2", font="Times 8").place(x=330, y=520)
+        tk.Label(Main_page, text = "Densidad de Carga Ligada Ri" + "{:.2e}".format(carga_ligada[0])+ " C/m^2", font="Times 8").place(x=330, y=550)
+        tk.Label(Main_page, text = "Densidad de Carga Ligada Re" + "{:.2e}".format(carga_ligada[1])+ " C/m^2", font="Times 8").place(x=330, y=580)
+        graficas.CapacitorCilindrico(RadioI,RadioE,Largo,3,Main_page)
     #------------------------------------------------------------------------------------------------------
 
     #----------------------------------Botones de resultados------------------------------------------------
-    Clc_posibles=tk.Label(Main_page, text = "Cálculos:", font="Times 15 italic")
-    Clc_posibles.place(x=15, y=230)
+    Clc_posibles=tk.Label(Main_page, text = "Cálculos:", font="Times 15")
+    Clc_posibles.place(x=150, y=230)
 
-    tk.Button(text ="Resultados", command= Call_capacitancia_PP).place(x=15, y=270)
-    tk.Label(Main_page, text = "Dieléctricos:", font="Times 15 italic").place(x=225, y=230)
-    tk.Button(text ="Lleno", command= Call_dec_lleno).place(x=225, y=270)
-    tk.Button(text ="Medio lleno", command= Call_dec_mitad).place(x=225, y=310)
-    tk.Button(text ="Medio lleno", command= Call_dec_mitad).place(x=225, y=310)
+    ttk.Button(text ="Resultados", command= Call_capacitancia_PP).place(x=150, y=270)
+    tk.Label(Main_page, text = "Dieléctricos:", font="Times 15 ").place(x=330, y=230)
+    ttk.Button(text ="Lleno", command= Call_dec_lleno).place(x=330, y=270)
+    ttk.Button(text ="Medio lleno", command= Call_dec_mitad).place(x=330, y=310)
 
-    Boton_atras = tk.Button(text ="Regresar", command= main)
+    Boton_atras = ttk.Button(text ="Regresar", command= main)
     Boton_atras.place(x=10, y=10)
 
-Main_page = tk.Tk()
-Main_page.geometry("550x450")
-main()
-Main_page.mainloop()
+if __name__ == "__main__":
+    Main_page = tk.Tk()
+    Main_page.geometry("1100x650")
+    main()
+    Main_page.mainloop()
