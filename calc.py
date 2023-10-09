@@ -59,6 +59,13 @@ def Carga(capacitancia, voltaje):
 def energia(capacitancia, voltaje):
     return ((capacitancia/2)*(voltaje**2))
 
+def energia_mitad_dielectricos(capacitancia_dielec, capacitancia_inicial, constante_dielectrica,voltaje):
+    total = (((capacitancia_inicial)*(voltaje**2)*(1/2))/2 + ((1/2)*(capacitancia_dielec)*(voltaje/constante_dielectrica)**2)/2)
+    return total
+def energia_full_dielectricos(capacitancia_dielec, constante_dielectrica,voltaje):
+    return ((1/2)*(capacitancia_dielec)*(voltaje/constante_dielectrica)**2)
+
+
 '''Funciones de Dieléctricos''' 
 #C =C₀*K
 def dielectrico_lleno(capacitancia_inicial, constante_dielectrica):
