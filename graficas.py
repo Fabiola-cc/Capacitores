@@ -23,49 +23,51 @@ Dielectrico =
 
 def CapacitorPlacasParalelas(largo, separacion, Dielectrico):
     # Crear una figura y un eje
-    ax = plt.subplots()
-    #Detalles
-    distanciaSeparacion = mlines.Line2D([largo/2 +0.1, largo/2 +0.1], [-separacion/2 + 0.5, separacion/2], color='#74cc83', linewidth=1) 
-    ax.add_line(distanciaSeparacion) #Distancia
-    ax.annotate("d = " + str(separacion), xy=(largo/2 +0.15, 0.3), color='#74cc83', fontsize=8, fontname='Times New Roman')
-    
-    ancho = mlines.Line2D([-largo/2, largo/2], [-separacion/2 - 0.1, -separacion/2 - 0.1], color='#70a193', linewidth=1)
-    ax.add_line(ancho) #Largo
-    ax.annotate("largo = " + str(largo), xy=(-0.4, -separacion/2 - 0.25), color='#70a193', fontsize=8, fontname='Times New Roman')
+    fig, ax = plt.subplots()
+    if separacion != 0:
+        #Detalles
+        distanciaSeparacion = mlines.Line2D([largo/2 +0.1, largo/2 +0.1], [-separacion/2 + 0.5, separacion/2], color='#74cc83', linewidth=1) 
+        ax.add_line(distanciaSeparacion) #Distancia
+        ax.annotate("d = " + str(separacion), xy=(largo/2 +0.15, 0.3), color='#74cc83', fontsize=8, fontname='Times New Roman')
 
-    if Dielectrico == 1: #sin
-        ax.annotate("Aire", xy=(-0.3,0.1), color='black', fontsize=12, fontname='Times New Roman')
-    elif Dielectrico == 2: #completo
-        dielectrico = patches.Rectangle((-largo/2,-separacion/2 + 0.3), largo, separacion-0.3, facecolor='#9999a1')
-        ax.annotate("Plexiglás", xy=(-0.3,0.1), color='black', fontsize=12, fontname='Times New Roman')
-        ax.add_patch(dielectrico)
-    else: #mitad
-        dielectrico = patches.Rectangle((-largo/2,-separacion/2 + 0.3), largo/2, separacion-0.3, facecolor='#9999a1', linewidth=1)
-        ax.annotate("Aire", xy=(largo/4,0.1), color='black', fontsize=12, fontname='Times New Roman')
-        ax.annotate("Plexiglás", xy=(-largo/3,0.1), color='black', fontsize=12, fontname='Times New Roman')
-        ax.add_patch(dielectrico)
+        ancho = mlines.Line2D([-largo/2, largo/2], [-separacion/2 - 0.1, -separacion/2 - 0.1], color='#70a193', linewidth=1)
+        ax.add_line(ancho) #Largo
+        ax.annotate("largo = " + str(largo), xy=(-0.4, -separacion/2 - 0.25), color='#70a193', fontsize=8, fontname='Times New Roman')
 
-    rectangulo = patches.Rectangle((-largo/2,-separacion/2 + 0.3), largo, separacion-0.3, linewidth=1, edgecolor='black', fill=False)
-    ax.add_patch(rectangulo)
+        if Dielectrico == 1: #sin
+            ax.annotate("Aire", xy=(-0.3,0.1), color='black', fontsize=12, fontname='Times New Roman')
+        elif Dielectrico == 2: #completo
+            dielectrico = patches.Rectangle((-largo/2,-separacion/2 + 0.3), largo, separacion-0.3, facecolor='#9999a1')
+            ax.annotate("Plexiglás", xy=(-0.3,0.1), color='black', fontsize=12, fontname='Times New Roman')
+            ax.add_patch(dielectrico)
+        else: #mitad
+            dielectrico = patches.Rectangle((-largo/2,-separacion/2 + 0.3), largo/2, separacion-0.3, facecolor='#9999a1', linewidth=1)
+            ax.annotate("Aire", xy=(largo/4,0.1), color='black', fontsize=12, fontname='Times New Roman')
+            ax.annotate("Plexiglás", xy=(-largo/3,0.1), color='black', fontsize=12, fontname='Times New Roman')
+            ax.add_patch(dielectrico)
 
-    # Crear barras de carga
-    BarraQ1 = patches.Rectangle((-largo/2,separacion/2), largo, 0.3, linewidth=1, edgecolor='red', facecolor='#f59399')
-    BarraQ2 = patches.Rectangle((-largo/2,-separacion/2), largo, 0.3, linewidth=1, edgecolor='blue', facecolor='#9993f5')
-    ax.add_patch(BarraQ1)
-    ax.add_patch(BarraQ2)
+        rectangulo = patches.Rectangle((-largo/2,-separacion/2 + 0.3), largo, separacion-0.3, linewidth=1, edgecolor='black', fill=False)
+        ax.add_patch(rectangulo)
 
-    # Configurar los límites del eje
-    ax.set_xlim(-largo, largo)
-    ax.set_ylim(-separacion, separacion)
+        # Crear barras de carga
+        BarraQ1 = patches.Rectangle((-largo/2,separacion/2), largo, 0.3, linewidth=1, edgecolor='red', facecolor='#f59399')
+        BarraQ2 = patches.Rectangle((-largo/2,-separacion/2), largo, 0.3, linewidth=1, edgecolor='blue', facecolor='#9993f5')
+        ax.add_patch(BarraQ1)
+        ax.add_patch(BarraQ2)
 
-    plt.title('Capacitor de placas paralelas\ncorte transversal')
-    plt.axis('equal')  # Para asegurarse de que la figura sea simétrica
-    plt.show()
-    
+        # Configurar los límites del eje
+        ax.set_xlim(-largo, largo)
+        ax.set_ylim(-separacion, separacion)
+
+        plt.title('Capacitor de placas paralelas\ncorte transversal')
+        plt.axis('equal')  # Para asegurarse de que la figura sea simétrica
+        plt.show()
+    else:
+        ax.annotate("No hay datos suficientes para graficar", xy=(0,0), color='black', fontsize=8, fontname='Times New Roman')
 
 def CapacitorEsferico(Ri, Re, Dielectrico):
     # Crear una figura y un eje
-    ax = plt.subplots()
+    fig, ax = plt.subplots()
     # Dibujar el círculo externo
     circulo_externo = patches.Circle((0, 0), radius=Re, fill=False, edgecolor='black', linewidth=1.5)
     ax.add_patch(circulo_externo)
@@ -100,10 +102,9 @@ def CapacitorEsferico(Ri, Re, Dielectrico):
     plt.gca().set_aspect('equal', adjustable='box')
     plt.show()
 
-
 def CapacitorCilindrico(Ri, Re, largo, Dielectrico):
     # Crear una figura y un eje
-    ax = plt.subplots()
+    fig, ax = plt.subplots()
     #Detalles
     ax.add_line(mlines.Line2D([0, Re], [-largo/2 - 0.2, -largo/2 - 0.2], color='#74cc83', linewidth=2)) #Radio Externo
     ax.annotate("Re = " + str(Re), xy=(Re/2-0.1, -largo/2 - 0.5), color='#74cc83', fontsize=8, fontname='Times New Roman')
