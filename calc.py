@@ -46,11 +46,42 @@ def energia(capacitancia, voltaje):
 
 '''Funciones de Dieléctricos'''
 def dielectrico_lleno(capacitancia_inicial, constante_dielectrica):
-    return capacitancia_inicial*(constante_dielectrica+1)
+    return capacitancia_inicial*(constante_dielectrica)
 
 def dielectrico_mitad(capacitancia_inicial, constante_dielectrica):
     return capacitancia_inicial*(constante_dielectrica+1)/2
 
+#Cargas libre Placas 
+#Lleno
+    #
+
+#Mitad
+    #
+    #
+
+
+#Cargas libre Esfera 
+#Lleno
+    #
+    #
+
+#Mitad
+    #
+    #
+    #
+    #
+
+#Cargas libre Cilindro 
+#Lleno
+    #
+    #
+
+#Mitad
+    #
+    #
+    #
+    #
+    
 def carga_libre_PP(Carga,largo, ancho):
     area = largo*ancho
     if area == 0:
