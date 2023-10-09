@@ -22,7 +22,7 @@ def Capacitancia_PP(largo, ancho, separacion): #Placas Paralelas
         division = area / separacion
         return e0 * division
 
-#C₀ = 4π∈₀*(rE*rI)/ln(rE/rI)
+#C₀ = 4π∈₀*(rE*rI)/(rE-rI)
 def Capacitancia_E(radioE, radioI): #Esfera
     if radioI == 0:
         return 0  
@@ -33,15 +33,15 @@ def Capacitancia_E(radioE, radioI): #Esfera
     if radios == 1: # Evitar logaritmo igual a cero
         return 0
 
-    ln = radioE*radioI/np.log(radios) #(rE*rI)/ln(rE/rI)
-    return inverso_k*ln
+    div = radioE*radioI/(radioE-radioI)#(rE*rI)/ln(rE/rI)
+    return inverso_k*div
 
 #C₀ = 2π∈₀*L/ln(rE/rI)
 def Capacitancia_C(largo, radioE, radioI): #Cilindro
     if radioI == 0:
         return 0  
     
-    inverso_k = 2 / k #2π∈₀
+    inverso_k = 2*np.pi*e0 #2π∈₀
     radios = radioE / radioI
 
     if radios == 1: # Evitar logaritmo igual a cero
@@ -79,20 +79,19 @@ def carga_libre_PP(Carga, largo, ancho, Dielectrico, constante):
         pass
     else:
         if Dielectrico == 2:
-            area = area/2
+            area = area*(constante + 1)/2
         Densidades[0] = Carga/area
         Densidades[1] = Densidades[0]*constante
         
     return Densidades       
-
 
 #Cargas libre Esfera ---> σ₀ = Carga*constante/4πr^2
 # Dielectrico
     # 1. El dieléctrico está en todo el capacitor
     # 2. El dieléctrico está en la mitad del capacitor
 def carga_libre_Esfera(Carga, radioI, radioE, Dielectrico, constante):
-    areaI = 4*np.pi*(radioI^2)
-    areaE = 4*np.pi*(radioE^2)
+    areaI = 4*np.pi*(radioI**2)
+    areaE = 4*np.pi*(radioE**2)
     #[0] Aire Interno, [1] Aire Externo, [2] Plexiglás Interno, [3] Plexiglás Externo
     Densidades = [0,0,0,0] 
 
@@ -109,19 +108,18 @@ def carga_libre_Esfera(Carga, radioI, radioE, Dielectrico, constante):
             Densidades[0] = Carga/areaI
             Densidades[1] = Carga/areaE
 
-        Densidades[2] = Densidades[0]*3.40
-        Densidades[3] = Densidades[1]*3.40
+        Densidades[2] = Densidades[0]*constante
+        Densidades[3] = Densidades[1]*constante
 
     return Densidades
-
 
 #Cargas libre Cilindro ---> σ₀ = Carga*constante/4πr^2*largo
 # Dielectrico
     # 1. El dieléctrico está en todo el capacitor
     # 2. El dieléctrico está en la mitad del capacitor
 def carga_libre_Cilindro(Carga, largo, radioE, radioI, Dielectrico, constante):
-    areaE = 2*np.pi*radioE*(radioE+largo)
-    areaI = 2*np.pi*radioE*(radioI+largo)
+    areaI = 2*np.pi*radioI*largo
+    areaE = 2*np.pi*radioE*largo
     #[0] Aire Interno, [1] Aire Externo, [2] Plexiglás Interno, [3] Plexiglás Externo
     Densidades = [0,0,0,0] 
 
@@ -129,8 +127,8 @@ def carga_libre_Cilindro(Carga, largo, radioE, radioI, Dielectrico, constante):
             pass
     else:
         if Dielectrico == 2:
-            divisorE = areaE*(1 + constante)/2 #2πre^2*(1+K)
-            divisorI = areaI*(1 + constante)/2 #2πri^2*(1+K)
+            divisorE = areaE*(1 + constante)/2 #πre*(1+K)
+            divisorI = areaI*(1 + constante)/2 #πri*(1+K)
 
             Densidades[0] = Carga/divisorI
             Densidades[1] = Carga/divisorE
@@ -145,11 +143,12 @@ def carga_libre_Cilindro(Carga, largo, radioE, radioI, Dielectrico, constante):
 
 #Carga ligada Cilindro 
 def carga_ligada_PP(carga_libre, constante_dielectrica):
-    return carga_libre*(1-1/constante_dielectrica)
+    result = (1-1/constante_dielectrica)
+    return carga_libre*result
 
-#Carga ligada de esfera o cilindro
+#Carga ligada de esfera
 def carga_ligada_EC(carga_libre, constante_dielectrica): 
     carga_ligada = [0,0]
-    carga_ligada[0] = carga_libre[2]*(1-1/constante_dielectrica) #Radio interno
-    carga_ligada[1] = carga_libre[3]*(1-1/constante_dielectrica) #Radio externo
+    carga_ligada[0] = carga_libre[0]*(1-1/constante_dielectrica) #Radio interno
+    carga_ligada[1] = carga_libre[1]*(1-1/constante_dielectrica) #Radio externo
     return carga_ligada
