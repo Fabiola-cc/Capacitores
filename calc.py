@@ -34,16 +34,21 @@ def Capacitancia_C(largo, radioE, radioI): #Cilindro
     ln = 1/np.log(radioE/radioI)
     return inverso_k*largo*ln
 
-'''Función de Carga''' #C*V
+
+'''Función de Carga''' #C*V, misma para todos
 def Carga(capacitancia, voltaje):
+
     return capacitancia*voltaje
 
-'''Función de Energía''' #1/2(C)(V^2)
+'''Función de Energía''' #1/2(C)(V^2), misma para todos
 def energia(capacitancia, voltaje):
     return ((capacitancia/2)*(voltaje**2))
 
 '''Funciones de Dieléctricos'''
-def dielectrico(capacitancia_inicial, constante_dielectrica):
+def dielectrico_lleno(capacitancia_inicial, constante_dielectrica):
+    return capacitancia_inicial*(constante_dielectrica+1)
+
+def dielectrico_mitad(capacitancia_inicial, constante_dielectrica):
     return capacitancia_inicial*(constante_dielectrica+1)/2
 
 def carga_libre_PP(Carga,largo, ancho):
