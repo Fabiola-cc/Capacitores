@@ -1,7 +1,7 @@
 '''
 Universidad del Valle de Guatemala
 Parcial 1 - Física 3
-Simulación de capacitancias
+Simulación de capacitores
  ---> Cálculos
 
 Fabiola Contreras 22787
@@ -27,7 +27,7 @@ def Capacitancia_E(radioE, radioI): #Esfera
     if radioI == 0:
         return 0  
     
-    inverso_k = 1/k #4π∈₀
+    inverso_k = 4*np.pi*e0 #4π∈₀
     radios = radioE / radioI
 
     if radios == 1: # Evitar logaritmo igual a cero
@@ -154,8 +154,15 @@ def carga_ligada_PP(carga_libre, constante_dielectrica):
     return carga_libre*result
 
 #Carga ligada de esfera
-def carga_ligada_EC(carga_libre, constante_dielectrica): 
+def carga_ligada_EC_lleno(carga_libre, constante_dielectrica): 
     carga_ligada = [0,0]
     carga_ligada[0] = carga_libre[0]*(1-1/constante_dielectrica) #Radio interno
     carga_ligada[1] = carga_libre[1]*(1-1/constante_dielectrica) #Radio externo
+    return carga_ligada
+
+#Carga ligada de esfera
+def carga_ligada_EC_medio(carga_libre, constante_dielectrica): 
+    carga_ligada = [0,0]
+    carga_ligada[0] = carga_libre[2]*(1-1/constante_dielectrica) #Radio interno
+    carga_ligada[1] = carga_libre[3]*(1-1/constante_dielectrica) #Radio externo
     return carga_ligada

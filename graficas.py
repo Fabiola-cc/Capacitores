@@ -1,7 +1,7 @@
 '''
 Universidad del Valle de Guatemala
 Parcial 1 - Física 3
-Simulación de capacitancias
+Simulación de capacitores
  ---> Graficación de capacitores 
 
 Fabiola Contreras 22787

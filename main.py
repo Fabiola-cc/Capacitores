@@ -81,10 +81,11 @@ def calculo_PP(): #Placas paralelas
         carga_libre = calc.carga_libre_PP(carga_total,largo, ancho, 1, 3.40)
         carga_ligada = calc.carga_ligada_PP(carga_libre[0], 3.40)
         energia = calc.energia_full_dielectricos(capacitancia_diec,3.40,voltaje)
-        tk.Label(Main_page, text = "Energía:  " + "{:.2e}".format(energia) + " J", font="Times 8").place(x=330, y=370)
-        tk.Label(Main_page, text = "Capacitancia con dieléctrico: "+ "{:.2e}".format(capacitancia_diec) + " F", font="Times 8").place(x=330, y=400)
+        tk.Label(Main_page, text = "Energía:  " + "{:.2e}".format(energia) + " J", font="Times 8").place(x=330, y=400)
+        tk.Label(Main_page, text = "Capacitancia con dieléctrico: "+ "{:.2e}".format(capacitancia_diec) + " F", font="Times 8").place(x=330, y=370)
         tk.Label(Main_page, text = "Densidad de Carga Libre: "+ "{:.2e}".format(carga_libre[0]) + " C/m^2" , font="Times 8").place(x=330, y=430)
         tk.Label(Main_page, text = "Densidad de Carga Ligada: " + "{:.2e}".format(carga_ligada) + " C/m^2", font="Times 8").place(x=330, y=460)
+        tk.Label(Main_page, text = "Carga:  "+ "{:.2e}".format(carga_total) + " C", font="Times 8").place(x=330, y=490)
         graficas.CapacitorPlacasParalelas(largo,separacion,2,Main_page)
 
     def Call_dec_mitad():
@@ -104,6 +105,7 @@ def calculo_PP(): #Placas paralelas
         tk.Label(Main_page, text = "Densidad de Carga Libre -Aire: "+ "{:.2e}".format(carga_libre[0]) + " C/m^2", font="Times 8").place(x=330, y=430)
         tk.Label(Main_page, text = "Densidad de Carga Libre -Plexiglas: "+ "{:.2e}".format(carga_libre[1]) + " C/m^2", font="Times 8").place(x=330, y=460)
         tk.Label(Main_page, text = "Densidad de Carga Ligada: " + "{:.2e}".format(carga_ligada) + " C/m^2", font="Times 8").place(x=330, y=490)
+        tk.Label(Main_page, text = "Carga:  "+ "{:.2e}".format(carga_total) + " C", font="Times 8").place(x=330, y=510)
         graficas.CapacitorPlacasParalelas(largo,separacion,3,Main_page)
     #------------------------------------------------------------------------------------------------------
 
@@ -135,7 +137,7 @@ def calculo_E(): #esfera
 
     tk.Label(Main_page, text = "Ingresa el voltaje", font="Times 8").place(x=160, y=170)
     Input_Voltaje_placa = tk.DoubleVar()
-    tk.Entry(textvariable=Input_Voltaje_placa).place(x=162,y=200)
+    tk.Entry(textvariable=Input_Voltaje_placa).place(x=162,y=190)
     #------------------------------------------------------------------------------------------------------
 
     #----------------------------------Funciones de botones------------------------------------------------
@@ -161,14 +163,15 @@ def calculo_E(): #esfera
         carga = calc.Carga(float(capacitancia), Voltaje)
         capacitancia_diec = calc.dielectrico_lleno(capacitancia,  3.40)
         carga_libre = calc.carga_libre_Esfera(carga, RadioI, RadioE, 1, 3.40)
-        carga_ligada = calc.carga_ligada_EC(carga_libre, 3.40)
+        carga_ligada = calc.carga_ligada_EC_lleno(carga_libre, 3.40)
         energia = calc.energia_full_dielectricos(capacitancia_diec,3.40,Voltaje)
-        tk.Label(Main_page, text = "Energía:  " + "{:.2e}".format(energia) + " J", font="Times 8").place(x=330, y=370)
-        tk.Label(Main_page, text = "Capacitancia con dieléctrico: "+ "{:.2e}".format(capacitancia_diec)+ " F", font="Times 8").place(x=330, y=400)
-        tk.Label(Main_page, text = "Densidad de Carga Libre Ri: "+ "{:.2e}".format(carga_libre[2]) + " C/m^2", font="Times 8").place(x=330, y=430)
-        tk.Label(Main_page, text = "Densidad de Carga Libre Re: "+ "{:.2e}".format(carga_libre[3]) + " C/m^2", font="Times 8").place(x=330, y=460)
+        tk.Label(Main_page, text = "Energía:  " + "{:.2e}".format(energia) + " J", font="Times 8").place(x=330, y=400)
+        tk.Label(Main_page, text = "Capacitancia con dieléctrico: "+ "{:.2e}".format(capacitancia_diec)+ " F", font="Times 8").place(x=330, y=370)
+        tk.Label(Main_page, text = "Densidad de Carga Libre Ri: "+ "{:.2e}".format(carga_libre[0]) + " C/m^2", font="Times 8").place(x=330, y=430)
+        tk.Label(Main_page, text = "Densidad de Carga Libre Re: "+ "{:.2e}".format(carga_libre[1]) + " C/m^2", font="Times 8").place(x=330, y=460)
         tk.Label(Main_page, text = "Densidad de Carga Ligada Ri: " + "{:.2e}".format(carga_ligada[0])+ " C/m^2", font="Times 8").place(x=330, y=490)
         tk.Label(Main_page, text = "Densidad de Carga Ligada Re: " + "{:.2e}".format(carga_ligada[1])+ " C/m^2", font="Times 8").place(x=330, y=520)
+        tk.Label(Main_page, text = "Carga:  "+ "{:.2e}".format(carga) + " C", font="Times 8").place(x=330, y=550)
         graficas.CapacitorEsferico(RadioI,RadioE,2,Main_page)
 
     def Call_dec_mitad():
@@ -179,7 +182,7 @@ def calculo_E(): #esfera
         capacitancia = calc.Capacitancia_E(RadioE,RadioI)
         carga = calc.Carga(capacitancia, Voltaje)
         carga_libre = calc.carga_libre_Esfera(carga, RadioI, RadioE, 2, 3.40)
-        carga_ligada = calc.carga_ligada_EC(carga_libre, 3.40)
+        carga_ligada = calc.carga_ligada_EC_medio(carga_libre, 3.40)
         capacitancia_diec = calc.dielectrico_mitad(capacitancia, 3.40)
         energia = calc.energia_mitad_dielectricos(capacitancia_diec,capacitancia, 3.4, Voltaje)
         tk.Label(Main_page, text = "Energía:  " + "{:.2e}".format(energia) + " J", font="Times 8").place(x=330, y=370)
@@ -190,6 +193,7 @@ def calculo_E(): #esfera
         tk.Label(Main_page, text = "Densidad de Carga Libre Re -> Plexiglas: "+ "{:.2e}".format(carga_libre[3])+ " C/m^2", font="Times 8").place(x=330, y=520)
         tk.Label(Main_page, text = "Densidad de Carga Ligada Ri: " + "{:.2e}".format(carga_ligada[0])+ " C/m^2", font="Times 8").place(x=330, y=550)
         tk.Label(Main_page, text = "Densidad de Carga Ligada Re: " + "{:.2e}".format(carga_ligada[1])+ " C/m^2", font="Times 8").place(x=330, y=580)
+        tk.Label(Main_page, text = "Carga:  "+ "{:.2e}".format(carga) + " C", font="Times 8").place(x=330, y=610)
         graficas.CapacitorEsferico(RadioI,RadioE,3,Main_page)
 
     #------------------------------------------------------------------------------------------------------
@@ -253,7 +257,7 @@ def calculo_Cl(): #Placas paralelas
         carga_total = calc.Carga(capacitancia, Voltaje)
         capacitancia_diec = calc.dielectrico_lleno(capacitancia,  3.40)
         carga_libre = calc.carga_libre_Cilindro(carga_total, Largo, RadioE, RadioI, 1, 3.40)
-        carga_ligada = calc.carga_ligada_EC(carga_libre, 3.40)
+        carga_ligada = calc.carga_ligada_EC_lleno(carga_libre, 3.40)
         energia = calc.energia_full_dielectricos(capacitancia_diec,3.40,Voltaje)
         tk.Label(Main_page, text = "Energía:  " + "{:.2e}".format(energia) + " J", font="Times 8").place(x=330, y=370)
         tk.Label(Main_page, text = "Capacitancia con dieléctrico: "+ "{:.2e}".format(capacitancia_diec)+ " F", font="Times 8").place(x=330, y=400)
@@ -261,6 +265,7 @@ def calculo_Cl(): #Placas paralelas
         tk.Label(Main_page, text = "Densidad de Carga Libre Re: "+ "{:.2e}".format(carga_libre[1])+ " C/m^2", font="Times 8").place(x=330, y=460)
         tk.Label(Main_page, text = "Densidad de Carga Ligada Ri: " + "{:.2e}".format(carga_ligada[0])+ " C/m^2", font="Times 8").place(x=330, y=490)
         tk.Label(Main_page, text = "Densidad de Carga Ligada Re: " + "{:.2e}".format(carga_ligada[1])+ " C/m^2", font="Times 8").place(x=330, y=520)
+        tk.Label(Main_page, text = "Carga:  "+ "{:.2e}".format(carga_total) + " C", font="Times 8").place(x=330, y=550)
         graficas.CapacitorCilindrico(RadioI,RadioE,Largo,2,Main_page)
 
     def Call_dec_mitad():
@@ -273,7 +278,7 @@ def calculo_Cl(): #Placas paralelas
         carga_total = calc.Carga(capacitancia, Voltaje)
         capacitancia_diec = calc.dielectrico_mitad(capacitancia, 3.40)
         carga_libre = calc.carga_libre_Cilindro(carga_total, Largo, RadioE, RadioI, 2, 3.40)
-        carga_ligada = calc.carga_ligada_EC(carga_libre, 3.40)
+        carga_ligada = calc.carga_ligada_EC_medio(carga_libre, 3.40)
         capacitancia_diec = calc.dielectrico_mitad(capacitancia, 3.40)
         energia = calc.energia_mitad_dielectricos(capacitancia_diec,capacitancia, 3.4, Voltaje)
         tk.Label(Main_page, text = "Energía:  " + "{:.2e}".format(energia) + " J", font="Times 8").place(x=330, y=370)
@@ -282,8 +287,9 @@ def calculo_Cl(): #Placas paralelas
         tk.Label(Main_page, text = "Densidad de Carga Libre Re -> Aire: "+ "{:.2e}".format(carga_libre[1])+ " C/m^2", font="Times 8").place(x=330, y=460)
         tk.Label(Main_page, text = "Densidad de Carga Libre Ri -> Plexiglas: "+ "{:.2e}".format(carga_libre[2])+ " C/m^2", font="Times 8").place(x=330, y=490)
         tk.Label(Main_page, text = "Densidad de Carga Libre Re -> Plexiglas: "+ "{:.2e}".format(carga_libre[3])+ " C/m^2", font="Times 8").place(x=330, y=520)
-        tk.Label(Main_page, text = "Densidad de Carga Ligada Ri" + "{:.2e}".format(carga_ligada[0])+ " C/m^2", font="Times 8").place(x=330, y=550)
-        tk.Label(Main_page, text = "Densidad de Carga Ligada Re" + "{:.2e}".format(carga_ligada[1])+ " C/m^2", font="Times 8").place(x=330, y=580)
+        tk.Label(Main_page, text = "Densidad de Carga Ligada Ri: " + "{:.2e}".format(carga_ligada[0])+ " C/m^2", font="Times 8").place(x=330, y=550)
+        tk.Label(Main_page, text = "Densidad de Carga Ligada Re: " + "{:.2e}".format(carga_ligada[1])+ " C/m^2", font="Times 8").place(x=330, y=580)
+        tk.Label(Main_page, text = "Carga:  "+ "{:.2e}".format(carga_total) + " C", font="Times 8").place(x=330, y=610)
         graficas.CapacitorCilindrico(RadioI,RadioE,Largo,3,Main_page)
     #------------------------------------------------------------------------------------------------------
 
